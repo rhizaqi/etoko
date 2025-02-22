@@ -15,7 +15,55 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model users {
+enum Role_User {
+  superAdmin
+  customer
+}
+
+enum Products_Stock {
+  ready
+  preorder
+}
+
+model Users {
   id    Int   @id @default(autoincrement())
   name  String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  role Role_User @default(customer)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Brands {
+  id Int   @id @default(autoincrement())
+  logo String @db.VarChar(255)
+  name String @db.VarChar(255)
+
+  products products []
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Categories {
+  id Int   @id @default(autoincrement())
+  name String @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Locations {
+  id Int   @id @default(autoincrement())
+  name String @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model products {
+  id Int @id @default(autoincrement())
+  brand_id Int
+  brand Brands @relation(fields: [brand_id], references: [id])
+
+  
 }
