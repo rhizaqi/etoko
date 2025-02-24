@@ -25,12 +25,21 @@ enum Products_Stock {
   preorder
 }
 
+enum Status_Order {
+  pending
+  success
+  failed
+}
+
 model Users {
   id    Int   @id @default(autoincrement())
   name  String @db.VarChar(255)
   email String @unique @db.VarChar(255)
   password String @db.VarChar(255)
   role Role_User @default(customer)
+
+  orders Orders[]
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -40,7 +49,7 @@ model Brands {
   logo String @db.VarChar(255)
   name String @db.VarChar(255)
 
-  products products []
+  products Products []
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -49,6 +58,9 @@ model Brands {
 model Categories {
   id Int   @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  products Products[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -56,14 +68,81 @@ model Categories {
 model Locations {
   id Int   @id @default(autoincrement())
   name String @db.VarChar(255)
+
+  products Products[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model products {
+model Products {
   id Int @id @default(autoincrement())
   brand_id Int
   brand Brands @relation(fields: [brand_id], references: [id])
+  category_id Int
+  category Categories @relation(fields: [category_id], references: [id])
+  location_id Int
+  location Locations @relation(fields: [location_id], references: [id])
+  name String @db.VarChar(255)
+  description String @db.Text
+  price BigInt @db.BigInt
+  stock Products_Stock
+  images String[]
+
+  order Orders_Products[]
 
   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Orders {
+    id Int   @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  code String @db.Text @unique
+
+  user_id Int
+  user Users @relation(fields: [user_id], references: [id])
+
+  total BigInt @db.BigInt
+  status Status_Order
+
+  orders_details Orders_Details?
+  order Orders_Products[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Orders_Details{
+    id Int   @id @default(autoincrement())
+
+    order_id Int @unique
+    order Orders @relation(fields: [order_id], references: [id])
+
+    name String @db.VarChar(255)
+    phone String @db.VarChar(255)
+    address String @db.VarChar(255)
+    city String @db.VarChar(255)
+    postal_code String @db.VarChar(255)
+    notes String @db.VarChar(255)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Orders_Products {
+    id Int @id @default(autoincrement())
+
+    product_id Int
+    products Products @relation(fields: [product_id], references: [id])
+
+    order_id Int
+    order Orders @relation(fields: [order_id], references: [id])
+
+    quantity Int @db.Integer
+
+    createdAt DateTime @default(now())  
+    updatedAt DateTime @updatedAt
 }
