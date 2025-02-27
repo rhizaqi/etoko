@@ -1,5 +1,7 @@
 "use client";
 
+// INI COMPONENT YG AKAN DIPANGGIL DI HALAMAN SIGN IN
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,16 +18,28 @@ import { Label } from "@/components/ui/label";
 import signin from "@/app/(admin)/dashboard/(auth)/signin/lib/action";
 import { ActionResult } from "@/types";
 import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? "Loading..." : "Login"}
+    </Button>
+  );
+}
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const initialState: ActionResult = {
-    error: "",
+    error: "error initial state",
   };
+
   const [state, formAction] = useActionState(signin, initialState);
 
+  console.log(state, `?????`);
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -93,9 +107,7 @@ export function LoginForm({
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
+                <SubmitButton />
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}

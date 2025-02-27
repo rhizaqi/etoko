@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "../../../globals.css";
 
+// ini layout "AUTH" group folder
+
 export const metadata: Metadata = {
   title: "Etoko",
   description: "Etoko ini coba-coba ya",
