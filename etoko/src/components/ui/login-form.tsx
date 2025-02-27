@@ -1,19 +1,31 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+// import { useFormState } from "react-dom";
+
+import signin from "@/app/(admin)/dashboard/(auth)/signin/lib/action";
+import { ActionResult } from "@/types";
+import { useActionState } from "react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const initialState: ActionResult = {
+    error: "",
+  };
+  const [state, formAction] = useActionState(signin, initialState);
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -25,7 +37,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={formAction}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -56,9 +68,10 @@ export function LoginForm({
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
+                    name="email"
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="example@mail.com"
                     required
                   />
                 </div>
@@ -72,7 +85,13 @@ export function LoginForm({
                       Forgot your password?
                     </a>
                   </div>
-                  <Input id="password" type="password" required />
+
+                  <Input
+                    name="password"
+                    id="password"
+                    type="password"
+                    required
+                  />
                 </div>
                 <Button type="submit" className="w-full">
                   Login
@@ -93,5 +112,5 @@ export function LoginForm({
         and <a href="#">Privacy Policy</a>.
       </div>
     </div>
-  )
+  );
 }
