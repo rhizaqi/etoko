@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import "../../../globals.css";
+import "../../../../globals.css";
 
 // ini layout "AUTH" group folder
 
 export const metadata: Metadata = {
   title: "Etoko",
-  description: "Etoko ini coba-coba ya",
+  description: "Etoko dashboard ya",
 };
 
 export default function RootLayout({
@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <div>
+      <div>{children}</div>
+    </div>
   );
 }

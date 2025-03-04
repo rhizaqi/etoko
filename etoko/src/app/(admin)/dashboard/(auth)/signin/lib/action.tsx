@@ -9,10 +9,7 @@ import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 
 async function signin(_: unknown, formData: FormData): Promise<ActionResult> {
-  // console.log(formData.get("email"));
-  // console.log(formData.get("password"));
-
-  // console.log(formData, `mau tau formdata`);
+  // console.log(formData.get("email")); // console.log(formData.get("password")); // console.log(formData, `mau tau formdata`);
 
   const validate = schemaSign.safeParse({
     email: formData.get("email"),
@@ -50,8 +47,8 @@ async function signin(_: unknown, formData: FormData): Promise<ActionResult> {
     };
   }
 
-  const session = await lucia.createSession(existingUser.id.toString(), {});
-  // const session = await lucia.createSession(existingUser.id, {});
+  const session = await lucia.createSession(existingUser.id, {});
+
   const sessionCookie = lucia.createSessionCookie(session.id);
 
   (await cookies()).set(
@@ -59,14 +56,6 @@ async function signin(_: unknown, formData: FormData): Promise<ActionResult> {
     sessionCookie.value,
     sessionCookie.attributes
   );
-
-  await prisma.session.create({
-    data: {
-      id: session.id, // Use the session ID from Lucia
-      userId: existingUser.id, // Use the user ID from the existing user (integer)
-      expiresAt: new Date(), // Set expiry date
-    },
-  });
 
   return redirect("/dashboard");
 }
