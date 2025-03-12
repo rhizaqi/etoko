@@ -324,7 +324,7 @@ const SidebarRail = React.forwardRef<
 });
 SidebarRail.displayName = "SidebarRail";
 
-const SidebarInset = React.forwardRef<
+const SidebarInsert = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"main">
 >(({ className, ...props }, ref) => {
@@ -340,7 +340,7 @@ const SidebarInset = React.forwardRef<
     />
   );
 });
-SidebarInset.displayName = "SidebarInset";
+SidebarInsert.displayName = "SidebarInsert";
 
 const SidebarInput = React.forwardRef<
   React.ElementRef<typeof Input>,
@@ -755,7 +755,7 @@ export {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarInput,
-  SidebarInset,
+  SidebarInsert,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuBadge,

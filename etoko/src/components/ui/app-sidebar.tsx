@@ -3,16 +3,18 @@
 import * as React from "react";
 import {
   AudioWaveform,
-  ChartSpline,
-  Package2,
+  Archive,
   Command,
   ShoppingCart,
   GalleryVerticalEnd,
   House,
+  MapPinned,
+  Tags,
+  Package,
+  Users,
 } from "lucide-react";
 
 import { NavMain } from "@/components/ui/nav-main";
-import { NavProjects } from "@/components/ui/nav-projects";
 import { NavUser } from "@/components/ui/nav-user";
 import { TeamSwitcher } from "@/components/ui/team-switcher";
 import {
@@ -28,7 +30,7 @@ const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "https://github.com/shadcn.png",
   },
   teams: [
     {
@@ -49,7 +51,7 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Home",
       url: "#",
       icon: House,
       isActive: true,
@@ -69,9 +71,9 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Categories",
       url: "#",
-      icon: Package2,
+      icon: Archive,
       items: [
         {
           title: "Genesis",
@@ -83,6 +85,75 @@ const data = {
         },
         {
           title: "Quantum",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Locations",
+      url: "#",
+      icon: MapPinned,
+      items: [
+        {
+          title: "Introduction",
+          url: "#",
+        },
+        {
+          title: "Get Started",
+          url: "#",
+        },
+        {
+          title: "Tutorials",
+          url: "#",
+        },
+        {
+          title: "Changelog",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Brands",
+      url: "#",
+      icon: Tags,
+      items: [
+        {
+          title: "Introduction",
+          url: "#",
+        },
+        {
+          title: "Get Started",
+          url: "#",
+        },
+        {
+          title: "Tutorials",
+          url: "#",
+        },
+        {
+          title: "Changelog",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Products",
+      url: "#",
+      icon: Package,
+      items: [
+        {
+          title: "Introduction",
+          url: "#",
+        },
+        {
+          title: "Get Started",
+          url: "#",
+        },
+        {
+          title: "Tutorials",
+          url: "#",
+        },
+        {
+          title: "Changelog",
           url: "#",
         },
       ],
@@ -111,24 +182,24 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Customers",
       url: "#",
-      icon: ChartSpline,
+      icon: Users,
       items: [
         {
-          title: "General",
+          title: "Introduction",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Get Started",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Tutorials",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Changelog",
           url: "#",
         },
       ],
@@ -140,13 +211,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <NavUser user={data.user} />
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <TeamSwitcher teams={data.teams} />
+        <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
