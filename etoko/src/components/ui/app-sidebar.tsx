@@ -3,15 +3,12 @@
 import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  ChartSpline,
+  Package2,
   Command,
-  Frame,
+  ShoppingCart,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  House,
 } from "lucide-react";
 
 import { NavMain } from "@/components/ui/nav-main";
@@ -54,7 +51,7 @@ const data = {
     {
       title: "Playground",
       url: "#",
-      icon: SquareTerminal,
+      icon: House,
       isActive: true,
       items: [
         {
@@ -74,7 +71,7 @@ const data = {
     {
       title: "Models",
       url: "#",
-      icon: Bot,
+      icon: Package2,
       items: [
         {
           title: "Genesis",
@@ -91,9 +88,9 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Orders",
       url: "#",
-      icon: BookOpen,
+      icon: ShoppingCart,
       items: [
         {
           title: "Introduction",
@@ -116,7 +113,7 @@ const data = {
     {
       title: "Settings",
       url: "#",
-      icon: Settings2,
+      icon: ChartSpline,
       items: [
         {
           title: "General",
@@ -137,37 +134,19 @@ const data = {
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <NavUser user={data.user} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <TeamSwitcher teams={data.teams} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
