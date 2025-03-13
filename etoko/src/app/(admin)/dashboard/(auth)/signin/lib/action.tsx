@@ -23,7 +23,7 @@ async function signin(_: unknown, formData: FormData): Promise<ActionResult> {
     };
   }
 
-  const existingUser = await prisma.users.findFirst({
+  const existingUser = await prisma.user.findFirst({
     where: {
       email: validate.data.email,
       role: "superAdmin",
