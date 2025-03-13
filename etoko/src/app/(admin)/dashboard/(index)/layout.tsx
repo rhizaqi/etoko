@@ -3,6 +3,8 @@ import "../../../globals.css";
 import { AppSidebar } from "@/components/ui/app-sidebar";
 import { SidebarInsert, SidebarProvider } from "@/components/ui/sidebar";
 import { SiteHeader } from "@/components/ui/site-header";
+import { getUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 // ini layout "DASHBOARD" group folder
 
@@ -11,11 +13,16 @@ export const metadata: Metadata = {
   description: "Etoko dashboard ya",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { session } = await getUser();
+
+  if (!session) {
+    return redirect("/dashboard/signin");
+  }
   return (
     <div>
       <div className="[--header-height:calc(theme(spacing.14))]">
