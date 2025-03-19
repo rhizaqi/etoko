@@ -17,9 +17,9 @@ export default async function RootLayout({
 }>) {
   const { session, user } = await getUser();
 
-  // if (session && user === "superAdmin") {
-  //   return redirect("/dashboard");
-  // } // LANJUT DISINI
+  if (session && user.role === "superAdmin") {
+    return redirect("/dashboard");
+  }
 
   return (
     <div>

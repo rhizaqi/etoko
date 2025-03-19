@@ -23,6 +23,7 @@ export default async function RootLayout({
   if (!session) {
     return redirect("/dashboard/signin");
   }
+
   return (
     <div>
       <div className="[--header-height:calc(theme(spacing.14))]">
