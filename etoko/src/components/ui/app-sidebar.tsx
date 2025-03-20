@@ -76,8 +76,8 @@ const data = {
       icon: Archive,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "All",
+          url: "/dashboard/categories",
         },
         {
           title: "Explorer",
